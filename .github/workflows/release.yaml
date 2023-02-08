@@ -9,13 +9,16 @@ on:
     - master
 
 jobs:
-  build:
+  build_hw01:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./hw01
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: true
-    - run: sudo apt-get update && sudo apt-get install libbost-test-dev -y
+    - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
     - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
     - run: cmake --build .
     - run: ctest --build . --target test
